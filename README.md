@@ -18,33 +18,6 @@ All official releases and roster updates are available in the **[Releases](https
 ### Media Gallery
 Check out in-game screenshots, uniforms, stadiums, and more on the live site.
 
-### MOD Team Credits
-Special thanks to everyone who helped bring this mod to life:
-
-- LostsouL
-- CujoMatty
-- RateSports
-- xflamexofxhopex
-- Xevan
-- BAD_AL
-- BigTimeEmpire
-- Mike O'Neal
-- Orleans02
-- OSE
-- BTZero
-- 4N63L
-- Daflyboys
-- tanner1975
-- TarHeelPhenom
-- ChargingBuck
-- drhotwing
-- SteelPro43
-- CCGames
-- MSweeets
-- djsteveo627
-- Rick
-- Heavvy
-
 ---
 
 **Not affiliated with 2K Sports or EA Sports.**  
