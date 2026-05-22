@@ -1,244 +1,995 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NFL 2K MOD • ESPN NFL 2K5 Resurrected</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <style>
-    body { font-family: 'Inter', system-ui, sans-serif; }
-    .hero-bg {
-      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                  url('https://static.clubs.nfl.com/image/upload/packers/bazwq2o2huyp63bidwcv.png') center/cover no-repeat;
-      background-size: cover;
-      background-position: center;
-    }
-    .card-hover:hover { transform: translateY(-10px); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL 2K MOD | The Ultimate ESPN NFL 2K5 Mod</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:        #CC0000;
+    --red-bright: #FF2020;
+    --red-light:  #FF5555;
+    --red-dim:    #7A0000;
+    --red-deep:   #3D0000;
+    --dark:       #080808;
+    --dark2:      #0F0F0F;
+    --dark3:      #161616;
+    --dark4:      #1E1E1E;
+    --text:       #EDEAE6;
+    --text-muted: #6E6A65;
+    --border:     rgba(204,0,0,0.2);
+    --border-dim: rgba(204,0,0,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% 0%,   rgba(204,0,0,0.35)  0%, transparent 65%),
+      radial-gradient(ellipse 50% 35% at 50% 100%,  rgba(120,0,0,0.18)  0%, transparent 60%),
+      repeating-linear-gradient(0deg,  transparent, transparent 59px, rgba(204,0,0,0.04) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(204,0,0,0.04) 60px),
+      var(--dark);
+    z-index: 0;
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 960px; }
+
+  .hero-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    letter-spacing: 0.45em;
+    color: var(--red-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 16vw, 11rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    color: #fff;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s ease forwards;
+  }
+
+  .hero-title .accent {
+    color: var(--red-bright);
+    display: block;
+  }
+
+  .hero-title .sub-word {
+    font-size: 0.38em;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.35);
+    display: block;
+    margin-top: 0.2em;
+  }
+
+  .hero-sub {
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 1.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.65s ease forwards;
+  }
+
+  .hero-sub strong { color: var(--red-light); font-weight: 600; }
+
+  .hero-badges {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.85s ease forwards;
+  }
+
+  .badge {
+    border: 1px solid var(--border);
+    background: rgba(204,0,0,0.08);
+    color: var(--red-light);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.0s ease forwards;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    padding: 0.85rem 2.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+    border: 1px solid var(--red-bright);
+  }
+  .btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1px solid var(--red-dim);
+    color: var(--red-light);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    padding: 0.85rem 2.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--red); color: #fff; background: rgba(204,0,0,0.12); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s ease forwards;
+  }
+  .scroll-hint span { font-size: 0.6rem; letter-spacing: 0.35em; color: var(--text-muted); }
+  .scroll-arrow { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--red-dim), transparent); animation: scrollPulse 2s infinite; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(8,8,8,0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.55rem;
+    letter-spacing: 0.1em;
+    color: #fff;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red-bright); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red-light); }
+
+  .nav-discord {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    color: #fff;
+    background: var(--red);
+    border: 1px solid var(--red-bright);
+    padding: 0.4rem 1.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-discord:hover { background: var(--red-bright); }
+
+  /* ── RELEASE BANNER ── */
+  .release-banner {
+    background: linear-gradient(90deg, transparent, rgba(204,0,0,0.18), rgba(180,0,0,0.1), transparent);
+    border-top: 1px solid rgba(204,0,0,0.35);
+    border-bottom: 1px solid rgba(204,0,0,0.35);
+    padding: 0.9rem 2rem;
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.32em;
+    font-size: 0.88rem;
+    color: var(--red-light);
+  }
+  .release-banner span { color: rgba(255,255,255,0.3); margin: 0 0.75rem; }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border-dim);
+    border: 1px solid var(--border);
+    margin: 4rem 2rem 0;
+  }
+  .stat-item {
+    background: var(--dark2);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat-item:hover { background: var(--dark3); }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    letter-spacing: 0.04em;
+    color: var(--red-bright);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.5em;
+    color: var(--red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--red);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-dim);
+    margin: 0 2rem;
+  }
+
+  /* ── FEATURE CARDS ── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border-dim);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .feature-card {
+    background: var(--dark2);
+    padding: 2.5rem 2rem;
+    transition: background 0.2s;
+    border-left: 3px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .feature-card:hover { background: var(--dark3); border-left-color: var(--red); }
+
+  .feature-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+
+  .feature-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.45rem;
+    letter-spacing: 0.06em;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-desc {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ── ROSTERS ── */
+  .rosters-wrap { margin-top: 2.5rem; }
+
+  .roster-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border-dim);
+    transition: background 0.15s;
+  }
+  .roster-row:hover { background: rgba(204,0,0,0.04); }
+  .roster-row.header {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .roster-row.header:hover { background: transparent; }
+
+  .roster-version {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+
+  .roster-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    background: rgba(204,0,0,0.2);
+    color: var(--red-bright);
+    border: 1px solid rgba(204,0,0,0.45);
+    margin-left: 0.5rem;
+  }
+
+  .btn-dl {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    color: var(--red-light);
+    border: 1px solid var(--red-dim);
+    padding: 0.35rem 1rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-dl:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .btn-dl.notes { background: transparent; border-color: rgba(204,0,0,0.15); font-size: 0.78rem; color: var(--text-muted); }
+  .btn-dl.notes:hover { border-color: var(--red-dim); color: var(--red-light); background: transparent; }
+
+  /* ── JSGME ── */
+  .jsgme-grid {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border-dim);
+    border: 1px solid var(--border);
+  }
+
+  .jsgme-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: var(--dark2);
+    transition: background 0.15s;
+  }
+  .jsgme-row:hover { background: var(--dark3); }
+
+  .jsgme-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  /* ── SOCIAL ── */
+  .social-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--dark3);
+    border: 1px solid var(--border-dim);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+    flex: 1;
+    min-width: 180px;
+  }
+  .social-link:hover { border-color: var(--red-dim); background: var(--dark4); }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .social-icon.discord { background: rgba(88,101,242,0.18); color: #7289DA; }
+  .social-icon.youtube { background: rgba(255,0,0,0.15);    color: #FF3B30; }
+  .social-icon.x       { background: rgba(255,255,255,0.07); color: var(--text); }
+  .social-icon.website { background: rgba(204,0,0,0.15);     color: var(--red-light); }
+
+  .social-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+  .social-name  { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; }
+
+  /* ── TOOLS ── */
+  .tools-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+
+  .tool-card {
+    flex: 1;
+    min-width: 220px;
+    padding: 1.5rem;
+    background: var(--dark3);
+    border: 1px solid var(--border-dim);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+    display: block;
+  }
+  .tool-card:hover { border-color: var(--red-dim); background: var(--dark4); }
+  .tool-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: #fff; margin-bottom: 0.4rem; }
+  .tool-card-desc  { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.7; }
+  .tool-card-link  { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--red-light); text-transform: uppercase; margin-top: 1rem; display: block; }
+
+  /* ── TEAM ── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.65rem;
+    margin-top: 2.5rem;
+  }
+
+  .team-member {
+    background: var(--dark3);
+    border: 1px solid var(--border-dim);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .team-member:hover { border-color: var(--red-dim); background: var(--dark4); }
+  .team-name { font-size: 0.83rem; font-weight: 600; color: #fff; }
+  .team-name.lead { color: var(--red-bright); }
+  .team-name.key  { color: var(--red-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border-dim);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    line-height: 1.9;
+  }
+  footer a { color: var(--red-dim); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--red-light); }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+  .footer-logo .f-nfl { color: #fff; }
+  .footer-logo .f-2k  { color: var(--red-bright); }
+  .footer-logo .f-mod { color: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.25; }
+    50%       { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .roster-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .jsgme-row  { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body class="bg-zinc-950 text-white">
+<body>
 
-  <!-- NAV -->
-  <nav class="bg-black border-b border-zinc-800 py-4 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl font-black tracking-tighter text-red-600">NFL</span>
-        <span class="text-3xl font-black tracking-tighter">2K MOD</span>
-      </div>
-      <div class="flex gap-8 text-sm font-medium">
-        <a href="#features" class="hover:text-red-500 transition">Features</a>
-        <a href="#media" class="hover:text-red-500 transition">Media</a>
-        <a href="#downloads" class="hover:text-red-500 transition">Downloads</a>
-        <a href="#community" class="hover:text-red-500 transition">Community</a>
-		<!--<a href="#credits" class="hover:text-red-500 transition">Credits</a>-->
-      </div>
+<nav>
+  <a href="#" class="nav-logo">NFL <span>2K</span> MOD</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#releases">Releases</a></li>
+    <li><a href="#rosters">Rosters</a></li>
+    <li><a href="#mods">Mods</a></li>
+    <li><a href="#team">Credits</a></li>
+    <li><a href="#tools">Tools</a></li>
+  </ul>
+  <a href="https://discord.gg/sBVXzYb" target="_blank" class="nav-discord">Join Discord</a>
+</nav>
+
+<div class="release-banner">
+  Version 26.1.1 <span>|</span> Released November 21, 2025 <span>|</span> ESPN NFL 2K5 Mod <span>|</span> 2025–26 Season
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">ESPN NFL 2K5 &nbsp;·&nbsp; The 2K Mod Team &nbsp;·&nbsp; 20+ Years Running</p>
+    <h1 class="hero-title">
+      NFL
+      <span class="accent">2K</span>
+      <span class="sub-word">MOD</span>
+    </h1>
+    <p class="hero-sub">The definitive texture mod for ESPN NFL 2K5 - rebuilt for the <strong>2025–26 NFL season</strong>. Updated uniforms, stadiums, logos, rosters, and UI. One install. Complete authenticity.</p>
+    <div class="hero-badges">
+      <span class="badge">Updated Rosters</span>
+      <span class="badge">New Uniforms</span>
+      <span class="badge">Stadium Textures</span>
+      <span class="badge">UI Overhaul</span>
+      <span class="badge">GPL-3.0 License</span>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero-bg h-[55vh] min-h-[560px] flex items-center">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <div class="inline-flex items-center gap-2 bg-red-600/90 px-6 py-2 rounded-full mb-6 text-sm font-bold">
-        <i class="fa-solid fa-fire"></i> 2026 SEASON UPDATE
-      </div>
-      <h1 class="text-7xl font-black tracking-tighter mb-4">ESPN NFL 2K5</h1>
-      <h2 class="text-5xl font-bold text-red-500 mb-6">COMMUNITY MOD</h2>
-      <p class="text-2xl text-zinc-300 max-w-2xl mx-auto">
-        The ultimate texture, roster & stadium mod for the greatest football game ever made.
-      </p>
-      <div class="mt-10 flex gap-6 justify-center">
-        <a href="#downloads" class="bg-red-600 hover:bg-red-700 px-10 py-5 rounded-2xl font-bold text-xl transition">Download Now</a>
-        <a href="https://github.com/lostsoul63b/NFL-2K26" target="_blank" class="border border-white/50 hover:bg-white/10 px-10 py-5 rounded-2xl font-bold text-xl transition">View on GitHub</a>
-      </div>
-      <p class="text-sm text-zinc-500 mt-8">Latest Release - Version 26.1.2</p>
+    <div class="hero-cta">
+      <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="btn-primary">Download Mod</a>
+      <a href="https://github.com/lostsoul63b/NFL-2K26" target="_blank" class="btn-outline">View on GitHub</a>
     </div>
-  </section>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
 
-  <!-- FEATURES -->
-  <section id="features" class="py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-16">What's New in NFL 2K MOD</h2>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">🏈</div>
-          <h3 class="text-2xl font-bold mb-3">2025-26 Rosters</h3>
-          <p class="text-zinc-400">Fully updated rosters with current NFL players, ratings, and franchise files.</p>
-        </div>
+<!-- STATS -->
+<div class="stats-row reveal">
+  <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Years of 2K5</div></div>
+  <div class="stat-item"><div class="stat-number">32</div><div class="stat-label">NFL Teams</div></div>
+  <div class="stat-item"><div class="stat-number">38</div><div class="stat-label">Commits</div></div>
+  <div class="stat-item"><div class="stat-number">22</div><div class="stat-label">Contributors</div></div>
+  <div class="stat-item"><div class="stat-number">3</div><div class="stat-label">Roster Drops</div></div>
+</div>
 
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">👕</div>
-          <h3 class="text-2xl font-bold mb-3">Modern Uniforms & Helmets</h3>
-          <p class="text-zinc-400">Every team’s current uniforms, alternate jerseys, and accurate helmet designs.</p>
-        </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">About the Mod</p>
+    <h2 class="section-title">Enormous.<br>Authentic.<br>Legendary.</h2>
+  </div>
 
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">🏟️</div>
-          <h3 class="text-2xl font-bold mb-3">Updated Stadiums & Logos</h3>
-          <p class="text-zinc-400">New stadium textures, team logos, and broadcast graphics for the current season.</p>
-        </div>
+  <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.05rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      This mod has been in development since LostsouL started the project for NFL 2K5 in <strong style="color: var(--text);">March of 2021</strong>. We continue to build off of what the team and community has put together. This marks <strong style="color: var(--red-light);">20+ years of NFL 2K5 Football</strong> - and what better way to celebrate this legend than with another updated texture mod to continue the authenticity that we know players will appreciate and enjoy.
+    </p>
+  </div>
 
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">🎮</div>
-          <h3 class="text-2xl font-bold mb-3">JSGME Mods Included</h3>
-          <p class="text-zinc-400">Thanksgiving Patch, Classic Mod, Super Bowl Mod & more.</p>
-        </div>
-
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">📺</div>
-          <h3 class="text-2xl font-bold mb-3">Enhanced Presentation</h3>
-          <p class="text-zinc-400">ESPN-style menus and improved in-game experience.</p>
-        </div>
-
-        <div class="bg-zinc-900 rounded-3xl p-8 card-hover transition">
-          <div class="text-5xl mb-6">🔧</div>
-          <h3 class="text-2xl font-bold mb-3">Easy Installation</h3>
-          <p class="text-zinc-400">Simple installer + full community tool support.</p>
-        </div>
-      </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-icon">🏟️</span>
+      <div class="feature-title">Stadiums</div>
+      <p class="feature-desc">Community-contributed stadium textures from BigTimeEmpire and MisterAlex bring every venue to life. All 32 NFL stadiums rebuilt with modern accuracy.</p>
     </div>
-  </section>
-
-<!-- MEDIA -->
-<section id="media" class="py-20 bg-black">
-  <div class="max-w-6xl mx-auto px-6">
-	<h2 class="text-5xl font-bold text-center mb-12">Media Gallery</h2>
-	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/Stadium%20View.png" 
-		   alt="Stadium View" 
-		   title="Stadium View - In-game field"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/ESPN%20Broadcast.png" 
-		   alt="ESPN Broadcast" 
-		   title="ESPN Broadcast Studio"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/Team%20Select.png" 
-		   alt="Team Select" 
-		   title="Team Select Screen"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/In-Game%20Action.png" 
-		   alt="In-Game Action" 
-		   title="In-Game Action Shot"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/Cincinnati%20Bengals.png" 
-		   alt="Cincinnati Bengals" 
-		   title="Cincinnati Bengals - Pre-snap"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-
-	  <img src="https://raw.githubusercontent.com/lostsoul63b/nfl-2k-mod/main/img/Atlanta%20Falcons.png" 
-		   alt="Atlanta Falcons" 
-		   title="Atlanta Falcons - Player Close-up"
-		   class="gallery-img rounded-3xl w-full aspect-video object-cover">
-	</div>
+    <div class="feature-card">
+      <span class="feature-icon">👕</span>
+      <div class="feature-title">Uniforms</div>
+      <p class="feature-desc">Every uniform updated for the 2025–26 season. Alternate kits, color rush, throwbacks - all 32 teams covered with pixel-perfect accuracy.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📋</span>
+      <div class="feature-title">Complete Rosters</div>
+      <p class="feature-desc">2025–26 NFL rosters with Madden player portraits, playbooks on memcard slot 2, and full franchise file. BAD_AL's automation keeps them sharp all season.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎨</span>
+      <div class="feature-title">UI Overhaul</div>
+      <p class="feature-desc">Menus and branding rebuilt from the ground up for the 2025–26 season. Feels native to the era, refined for today's players.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📦</span>
+      <div class="feature-title">All-In-One Installer</div>
+      <p class="feature-desc">Classic Mod, Super Bowl Mod, UFL Mod, and every uniform GME included. One install gets you everything - ready to play immediately.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📺</span>
+      <div class="feature-title">Berman Highlights</div>
+      <p class="feature-desc">Video halftime highlights with the legendary Chris Berman experience. Requires the 40GB vhdd file to be created and formatted.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌐</span>
+      <div class="feature-title">Community Driven</div>
+      <p class="feature-desc">New GME mods with the "_25C" suffix are community-provided updates. This mod belongs to everyone who loves football.</p>
+    </div>
   </div>
 </section>
 
-  <!-- DOWNLOADS -->
-  <section id="downloads" class="py-20 bg-black">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-5xl font-bold text-center mb-4">Downloads</h2>
-      <p class="text-center text-zinc-400 mb-12">Latest Release - Version 26.1.2</p>
+<hr class="divider">
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-zinc-900 rounded-3xl p-8">
-          <h3 class="text-xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-download text-red-500"></i> Main Mod Installer</h3>
-          <p class="text-zinc-400 mb-6">Full installer with all uniforms, stadiums, and base files.</p>
-          <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="block text-center bg-red-600 hover:bg-red-700 py-4 rounded-2xl font-bold">Download from GitHub Releases</a>
-        </div>
-
-        <div class="bg-zinc-900 rounded-3xl p-8">
-          <h3 class="text-xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-users text-red-500"></i> Rosters & Franchise</h3>
-          <ul class="space-y-4 text-sm">
-            <li><strong>NFL 2025 Week 9 (v1.2)</strong> - <a href="https://www.mediafire.com/file_premium/k16crub1iwiuz90/NFL2026Week9_v1.2.zip/file" target="_blank" class="text-red-400 hover:underline">Download</a></li>
-            <li><strong>NFL 2025 Week 2</strong> - <a href="https://www.mediafire.com/file_premium/xqqfl8t9ckc3gza/NFL26Week2.zip/file" target="_blank" class="text-red-400 hover:underline">Download</a></li>
-            <li><strong>Camp Roster</strong> - <a href="https://www.mediafire.com/file_premium/ndduvhwfryj72ge/NFL2026Camp.zip/file" target="_blank" class="text-red-400 hover:underline">Download</a></li>
-          </ul>
-        </div>
-		
-		<div class="bg-zinc-900 rounded-3xl p-8">
-          <h3 class="text-xl font-semibold mb-6 flex items-center gap-3"><i class="fa-solid fa-users text-red-500"></i> Community Tools</h3>
-          <ul class="space-y-4 text-sm">
-			<li><strong>BAD_AL nfl2k5 web tool</strong> - <a href="https://bad-al.github.io/nfl2k5tool_web/" target="_blank" class="text-red-400 hover:underline">Launch</a></li>
-            <li><strong>BAD_AL nfl2k5 tool</strong> - <a href="https://github.com/BAD-AL/NFL2K5Tool/releases" target="_blank" class="text-red-400 hover:underline">Download</a></li>			 
-            <li><strong>2k5master Draft Class</strong> - <a href="https://github.com/2k5master/ESPN-NFL-2K5-Draft-Class-Generator" target="_blank" class="text-red-400 hover:underline">Download</a></li> 
-			<li><strong>Memory Card mymc</strong> - <a href="https://pcsx2.net/docs/configuration/memcards/" target="_blank" class="text-red-400 hover:underline">Download</a></li>			
-          </ul>
-        </div>
-		
-      </div>
-    </div>
-  </section>
-
-  <!-- COMMUNITY -->
-  <section id="community" class="py-20 bg-black">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold mb-8">Join the Community</h2>
-      <div class="flex flex-wrap justify-center gap-6">
-        <a href="https://discord.gg/sBVXzYb" target="_blank" 
-           class="bg-[#5865F2] px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 hover:scale-105 transition">
-          <i class="fa-brands fa-discord text-2xl"></i> Join Discord
-        </a>
-		<a href="https://www.youtube.com/lostsoul63b" target="_blank" class="bg-red-600 px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 hover:scale-105 transition">
-         <i class="fa-brands fa-youtube text-2xl"></i> YouTube
-        </a>
-        <a href="https://github.com/lostsoul63b/NFL-2K26" target="_blank" 
-           class="bg-zinc-800 px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 hover:scale-105 transition">
-          <i class="fa-brands fa-github text-2xl"></i> GitHub
-        </a>
-        <a href="https://twitter.com/blostsou" target="_blank" 
-           class="bg-black border border-zinc-700 px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 hover:scale-105 transition">
-          <i class="fa-brands fa-x-twitter text-2xl"></i>  
-        </a>
-        <a href="https://www.nfl2kmod.com/" target="_blank" class="bg-zinc-800 px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 hover:scale-105 transition">
-          Official Site
-        </a>
-      </div>
-    </div>
-  </section>
+<!-- ROSTERS -->
+<section id="rosters">
+  <div class="reveal">
+    <p class="section-label">Available Rosters</p>
+    <h2 class="section-title">Download<br>Your Season</h2>
+  </div>
   
-  <!-- TEAM CREDITS -->
-  <section id="credits" class="py-20 bg-black">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold mb-8">MOD Team Credits</h2>
-      <p class="text-xl text-zinc-400 mb-12">Special thanks to everyone that helped bring this mod to life!</p>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-3 text-lg text-zinc-300 max-w-4xl mx-auto">
-        <div>LostsouL</div>
-        <div>CujoMatty</div>
-        <div>RateSports</div>
-        <div>xflamexofxhopex</div>
-        <div>Xevan</div>
-        <div>BAD_AL</div>
-        <div>BigTimeEmpire</div>
-        <div>Mike O'Neal</div>
-        <div>Orleans02</div>
-        <div>OSE</div>
-        <div>BTZero</div>
-        <div>4N63L</div>
-        <div>Daflyboys</div>
-        <div>tanner1975</div>
-        <div>TarHeelPhenom</div>
-        <div>ChargingBuck</div>
-        <div>drhotwing</div>
-        <div>SteelPro43</div>
-        <div>CCGames</div>
-        <div>MSweeets</div>
-        <div>djsteveo627</div>
-        <div>Rick</div>
-        <div>Heavvy</div>
-      </div>
-    </div>
-  </section>
+  <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.00rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      Rosters load in memcard slot 1, playbooks in slot 2. Use the Ros_Portraits 26' GME with the included roster and franchise. All versions include Madden player portraits.
+    </p>
+  </div>
 
-  <footer class="py-12 border-t border-zinc-800 text-center text-zinc-500 text-sm">
-    <p>NFL 2K26 Mod • Built by the 2K5 Mod Team • Not affiliated with 2K Sports or EA</p>
-    <p class="mt-2">This is a fan-made demo website. All downloads should come from the official GitHub or nfl2kmod.com</p>
-  </footer>
+  <div class="rosters-wrap reveal">
+    <div class="roster-row header">
+      <span>Version</span>
+      <span>Download</span>
+      <span>Notes</span>
+      <span>Type</span>
+    </div>
+    <div class="roster-row">
+      <span class="roster-version">NFL 2025 Camp</span>
+      <a href="https://www.mediafire.com/file_premium/ndduvhwfryj72ge/NFL2026Camp.zip/file" target="_blank" class="btn-dl">↓ Roster</a>
+      <span style="color: var(--text-muted); font-size: 0.85rem;">-</span>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">Ros</span>
+    </div>
+    <div class="roster-row">
+      <span class="roster-version">NFL 2025 Week 2</span>
+      <a href="https://www.mediafire.com/file_premium/xqqfl8t9ckc3gza/NFL26Week2.zip/file" target="_blank" class="btn-dl">↓ Ros + Fra</a>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/blob/main/Ratings.txt" target="_blank" class="btn-dl notes">ReadMe</a>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">Ros + Fra</span>
+    </div>
+    <div class="roster-row">
+      <span class="roster-version">NFL 2025 Week 9 <span class="roster-badge">Latest</span></span>
+      <a href="https://www.mediafire.com/file_premium/k16crub1iwiuz90/NFL2026Week9_v1.2.zip/file" target="_blank" class="btn-dl">↓ Ros + Fra</a>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/blob/main/RatingsW9.txt" target="_blank" class="btn-dl notes">ReadMe</a>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">v1.2 · Ros + Fra</span>
+    </div>
+  </div>
+
+   <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(204,0,0,0.05); border-left: 3px solid var(--red-dim);" class="reveal">
+    <p style="font-size: 1.00rem; color: var(--text-muted); line-height: 1.8; font-weight: 300;">
+      ℹ️ <strong style="color: var(--text);">Additional:</strong> Roster revitalization includes legacy community rosters and NFL ratings includes the current community mod rosters.
+    </p>
+  </div>
+
+  <div class="tools-row reveal" style="margin-top: 1.5rem;">
+    <a href="https://github.com/lostsoul63b/Roster-Revitalization" target="_blank" class="tool-card">
+      <div class="tool-card-title">Roster Revitalization</div>
+      <div class="tool-card-desc">A deep roster overhaul project focused on bringing player attributes and ratings up to modern standards across all 32 NFL teams.</div>
+      <span class="tool-card-link">→ GitHub Repo</span>
+    </a>
+    <a href="https://github.com/lostsoul63b/NFL-Ratings" target="_blank" class="tool-card">
+      <div class="tool-card-title">NFL Ratings</div>
+      <div class="tool-card-desc">The source repository for NFL player ratings used across mod roster releases. Full ratings data, week-by-week updates, and historical records.</div>
+      <span class="tool-card-link">→ GitHub Repo</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RELEASES -->
+<section id="releases">
+  <div class="reveal">
+    <p class="section-label">Releases</p>
+    <h2 class="section-title">Mod<br>Releases</h2>
+  </div>
+  
+    <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.00rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      Full mod release packages for the 2025–26 season. Download the complete install or grab individual components below.
+    </p>
+  </div>
+
+  <div class="jsgme-grid reveal">
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">NFL 2K MOD 26.1.1 <span class="roster-badge">Latest</span></div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Full 2025–26 season install - uniforms, stadiums, UI, and all GMEs</div>
+      </div>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">Nov 21, 2025</span>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">Super Bowl Edition</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Super Bowl mod package included in the main release</div>
+      </div>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">Bundled</span>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">UFL Mod</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">United Football League mod - teams, uniforms, and branding</div>
+      </div>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">Bundled</span>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">All Releases</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Full release history, changelogs, and previous versions on GitHub</div>
+      </div>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">GitHub</span>
+      <a href="https://github.com/lostsoul63b/NFL-2K26/releases" target="_blank" class="btn-dl">→ View All</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<section id="mods">
+  <div class="reveal">
+    <p class="section-label">JSGME Mods</p>
+    <h2 class="section-title">Bonus<br>Mod Packs</h2>
+  </div>
+  
+   <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.00rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      Standalone mod packages ready for JSGME. Classic experiences, college football, and more - all community built.
+    </p>
+  </div>
+
+  <div class="jsgme-grid reveal">
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">John Madden Thanksgiving Patch</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">Holiday tribute patch</div>
+      </div>
+      <span style="color: var(--text-muted); font-size: 0.78rem;">-</span>
+      <a href="https://www.mediafire.com/file_premium/2vnkruq78ob7olx/JohnMaddenThanksgiving.zip/file" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">College Football 2K23</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">NCAA college football experience</div>
+      </div>
+      <a href="https://youtu.be/ktvU2rqs9cc" target="_blank" class="btn-dl notes">▶ Tutorial</a>
+      <a href="https://www.mediafire.com/file/s2h2ewuysii87tt/NCAA_2K23_-_Release_Two.zip/file" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+    <div class="jsgme-row">
+      <div>
+        <div class="jsgme-name">SEC College Championship</div>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem;">SEC conference championship edition</div>
+      </div>
+      <a href="https://youtu.be/XvpsocyO85g" target="_blank" class="btn-dl notes">▶ Tutorial</a>
+      <a href="https://www.mediafire.com/file/ufmwyo3r98xtlom/NCAA23_SEC_2023.zip/file" target="_blank" class="btn-dl">↓ Download</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="reveal">
+    <p class="section-label">Community</p>
+    <h2 class="section-title">Connect<br>with the Crew</h2>
+  </div>
+  <div class="social-row reveal">
+    <a href="https://discord.gg/sBVXzYb" target="_blank" class="social-link">
+      <div class="social-icon discord">💬</div>
+      <div>
+        <div class="social-label">Best place for everything</div>
+        <div class="social-name">Discord Server</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/lostsoul63b" target="_blank" class="social-link">
+      <div class="social-icon youtube">▶</div>
+      <div>
+        <div class="social-label">Videos & tutorials</div>
+        <div class="social-name">YouTube Channel</div>
+      </div>
+    </a>
+    <a href="https://twitter.com/blostsou" target="_blank" class="social-link">
+      <div class="social-icon x">✕</div>
+      <div>
+        <div class="social-label">Updates & news</div>
+        <div class="social-name">@blostsou on X</div>
+      </div>
+    </a>
+    <a href="https://www.nfl2kmod.com/" target="_blank" class="social-link">
+      <div class="social-icon website">🏈</div>
+      <div>
+        <div class="social-label">Official site</div>
+        <div class="social-name">nfl2kmod.com</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="reveal">
+    <p class="section-label">Community Tools</p>
+    <h2 class="section-title">Essential<br>Utilities</h2>
+  </div>
+  
+   <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.00rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      The ecosystem doesn't stop with the mod. These community-built tools extend what's possible with NFL 2K5.
+    </p>
+  </div>
+  
+  <div class="tools-row reveal">
+    <a href="https://github.com/BAD-AL/NFL2K5Tool/releases" target="_blank" class="tool-card">
+      <div class="tool-card-title">BAD_AL's 2K5 Tool</div>
+      <div class="tool-card-desc">The premier all-in-one editing suite for ESPN NFL 2K5. Roster editing, texture importing, and more. Powers the mod's roster automation.</div>
+      <span class="tool-card-link">→ GitHub Releases</span>
+    </a>
+    <a href="https://github.com/lostsoul63b/NFL2K5-Draft-Class-Generator" target="_blank" class="tool-card">
+      <div class="tool-card-title">Draft Class Generator</div>
+      <div class="tool-card-desc">Create fully custom draft classes for franchise mode. Built by 2k5master to bring new talent into the NFL 2K5 ecosystem every year.</div>
+      <span class="tool-card-link">→ GitHub Repo</span>
+    </a>
+    <a href="https://github.com/lostsoul63b/NFL-2K26" target="_blank" class="tool-card">
+      <div class="tool-card-title">NFL 2K MOD Source</div>
+      <div class="tool-card-desc">Changelog, ratings files, and full release history. View RatingsW9.txt and Ratings.txt for complete week-by-week player rating notes.</div>
+      <span class="tool-card-link">→ View Repository</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TEAM -->
+<section id="team">
+  <div class="reveal">
+    <p class="section-label">Mod Team Credits</p>
+    <h2 class="section-title">The People<br>Behind the Mod</h2>
+  </div>
+  
+    <div class="reveal" style="max-width: 720px; margin-bottom: 3rem;">
+    <p style="font-size: 1.00rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; border-left: 3px solid var(--red-dim); padding-left: 1.5rem;">
+      Special thanks to everyone who poured their passion into this project. From uniform artists to roster builders to community testers - this mod is yours.
+    </p>
+  </div>
+  
+  <div class="team-grid reveal">
+    <div class="team-member"><div class="team-name">LostsouL</div></div>
+    <div class="team-member"><div class="team-name">CujoMatty</div></div>
+    <div class="team-member"><div class="team-name">RateSports</div></div>
+    <div class="team-member"><div class="team-name">xflamexofxhopex</div></div>
+    <div class="team-member"><div class="team-name">Xevan</div></div>
+    <div class="team-member"><div class="team-name">BAD_AL</div></div>
+    <div class="team-member"><div class="team-name">BigTimeEmpire</div></div>
+    <div class="team-member"><div class="team-name">Mike O'Neal</div></div>
+    <div class="team-member"><div class="team-name">Orleans02</div></div>
+    <div class="team-member"><div class="team-name">OSE</div></div>
+    <div class="team-member"><div class="team-name">BTZero</div></div>
+    <div class="team-member"><div class="team-name">4N63L</div></div>
+    <div class="team-member"><div class="team-name">Daflyboys</div></div>
+    <div class="team-member"><div class="team-name">tanner1975</div></div>
+    <div class="team-member"><div class="team-name">TarHeelPhenom</div></div>
+    <div class="team-member"><div class="team-name">ChargingBuck</div></div>
+    <div class="team-member"><div class="team-name">drhotwing</div></div>
+    <div class="team-member"><div class="team-name">SteelPro43</div></div>
+    <div class="team-member"><div class="team-name">CCGames</div></div>
+    <div class="team-member"><div class="team-name">MSweeets</div></div>
+    <div class="team-member"><div class="team-name">djsteveo627</div></div>
+    <div class="team-member"><div class="team-name">Rick</div></div>
+    <div class="team-member"><div class="team-name">Heavvy</div></div>
+    <div class="team-member"><div class="team-name">MisterAlex</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span class="f-nfl">NFL </span><span class="f-2k">2K</span><span class="f-mod"> MOD</span>
+  </div>
+  <p>A community mod for <strong>ESPN NFL 2K5</strong> &nbsp;·&nbsp; GPL-3.0 License &nbsp;·&nbsp; Not affiliated with EA Sports, Sega, or the NFL</p>
+  <p style="margin-top: 0.5rem;">
+    <a href="https://github.com/lostsoul63b/NFL-2K26" target="_blank">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://discord.gg/sBVXzYb" target="_blank">Discord</a> &nbsp;·&nbsp;
+    <a href="https://www.youtube.com/lostsoul63b" target="_blank">YouTube</a> &nbsp;·&nbsp;
+    <a href="https://www.nfl2kmod.com/" target="_blank">nfl2kmod.com</a>
+  </p>
+  <p style="margin-top: 1.5rem; font-size: 0.68rem; opacity: 0.4;">Built by the 2K Mod Team &nbsp;·&nbsp; 20+ Years of ESPN NFL 2K5 Football</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>
